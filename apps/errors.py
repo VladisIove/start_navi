@@ -11,9 +11,6 @@ class WrongPasswordOrEmail:
     code = 1042
     description = 'Wrong password or email'
 
-############## Excetion by post ##############
-
-
 
 ############## Another excetion ##############
 

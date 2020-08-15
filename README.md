@@ -7,6 +7,14 @@ source env/bin/activate
 
 pip install -r requirements.txt
 
+## Create database in postgresql
+
+DATABASE = star_navi
+USERNAME = star_navi
+PASSWORD = star_navi
+PORT = 5432
+HOST = localhost
+
 ## Up Api
 
 python main.py
