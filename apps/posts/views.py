@@ -50,19 +50,19 @@ def likePost():
         'post_id': like.post_id,
         'date_created': like.created
     })
-likePost.method = ['POST',]
+likePost.methods = ['POST',]
 
 @jwt_required
 def unlikePost():
     data = request.get_json()
 
-    if (data is None or  None in [data.get('post_id',None),data.get('user_id', None)]):
+    if (data is None or  None in [data.get('post_id',None),data.get('user_id', None), data.get('like_id')]):
         return jsonify({'code': NotValidData.code, 'description': NotValidData.description})
 
     if User.query.filter_by(id=data['user_id']).first() is None or Post.query.filter_by(id=data['post_id']).first() is None:
         return jsonify({'code': NotValidData.code, 'description': NotValidData.description})
 
-    like = Like.query.filter_by(user_id=data['user_id'], post_id=data['post_id']).first()
+    like = Like.query.filter_by(user_id=data['user_id'], post_id=data['post_id'], id=data['like_id']).first()
     if like is None:
         return jsonify({'code': NotValidData.code, 'description': NotValidData.description})
     
