@@ -21,7 +21,8 @@ def login():
         db.session.commit()
         token = user.get_token()
         return jsonify({
-            'token': token
+            'token': token,
+            'user_id': user.id
         }) 
     return jsonify({'code': WrongPasswordOrEmail.code, 'description': WrongPasswordOrEmail.description})
 login.methods = ['POST',]
@@ -40,6 +41,7 @@ def signup():
     db.session.add(user)
     db.session.commit()
     return jsonify({
-        'token': token
+        'token': token,
+        'user_id': user.id
     })
 signup.methods = ['POST',]

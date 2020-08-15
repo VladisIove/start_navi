@@ -18,4 +18,4 @@ def userActivity():
                 'type_active': 'login' if event.type_active is Event.TypeActivity.Login else 'request'
                 } for event in events]
     return jsonify(respone)
-userActivity.methods=['POST']
+userActivity.methods=['GET']

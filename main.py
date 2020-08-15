@@ -4,7 +4,7 @@ from flask_jwt_extended import JWTManager
 
 from apps.users.models import db
 from apps.users.views import login, signup
-from apps.posts.views import createPost, toogleLikePost, analiticLikes
+from apps.posts.views import createPost, likePost, unlikePost, analiticLikes
 from apps.events.views import userActivity
 
 
@@ -24,15 +24,17 @@ def add_router(app):
     app.view_functions['signup'] = signup
     app.view_functions['login'] = login
     app.view_functions['createPost'] = createPost
-    app.view_functions['toogleLikePost'] = toogleLikePost
+    app.view_functions['likePost'] = likePost
     app.view_functions['analiticLikes'] = analiticLikes
     app.view_functions['userActivity'] = userActivity
+    app.view_functions['unlikePost'] = unlikePost
     
     
     app.add_url_rule('/login', 'login', login)
     app.add_url_rule('/signup', 'signup', signup)
     app.add_url_rule('/createPost', 'createPost', createPost)
-    app.add_url_rule('/toogleLikePost', 'toogleLikePost', toogleLikePost)
+    app.add_url_rule('/likePost', 'likePost', likePost)
+    app.add_url_rule('/unlikePost', 'unlikePost', unlikePost)
     app.add_url_rule('/analiticLikes', 'analiticLikes', analiticLikes)
     app.add_url_rule('/userActivity', 'userActivity', userActivity)
     return app 

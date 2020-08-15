@@ -32,7 +32,28 @@ def createPost():
 createPost.methods=['POST']   
 
 @jwt_required
-def toogleLikePost():
+def likePost():
+    data = request.get_json()
+
+    if (data is None or  None in [data.get('post_id',None),data.get('user_id', None)]):
+        return jsonify({'code': NotValidData.code, 'description': NotValidData.description})
+
+    if User.query.filter_by(id=data['user_id']).first() is None or Post.query.filter_by(id=data['post_id']).first() is None:
+        return jsonify({'code': NotValidData.code, 'description': NotValidData.description})
+
+    like = Like(user_id=data['user_id'], post_id=data['post_id'])
+    db.session.add(like)
+    db.session.commit()
+    return jsonify({
+        'id': like.id,
+        'user_id': like.user_id,
+        'post_id': like.post_id,
+        'date_created': like.created
+    })
+likePost.method = ['POST',]
+
+@jwt_required
+def unlikePost():
     data = request.get_json()
 
     if (data is None or  None in [data.get('post_id',None),data.get('user_id', None)]):
@@ -42,12 +63,10 @@ def toogleLikePost():
         return jsonify({'code': NotValidData.code, 'description': NotValidData.description})
 
     like = Like.query.filter_by(user_id=data['user_id'], post_id=data['post_id']).first()
-    flag = True if like is None else False
     if like is None:
-        like = Like(user_id=data['user_id'], post_id=data['post_id'])
-        db.session.add(like)
-    else:
-        db.session.delete(like)
+        return jsonify({'code': NotValidData.code, 'description': NotValidData.description})
+    
+    db.session.delete(like)
     event = Event(user_id=data['user_id'], type_active=Event.TypeActivity.Request)
     db.session.add(event)
     db.session.commit()
@@ -55,10 +74,9 @@ def toogleLikePost():
         'id': like.id,
         'user_id': like.user_id,
         'post_id': like.post_id,
-        'craeted': flag,
         'date_created': like.created
     })
-toogleLikePost.methods=['POST']
+unlikePost.methods = ['POST',]
 
 @jwt_required
 def analiticLikes():
