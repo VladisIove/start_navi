@@ -1,13 +1,13 @@
-## Create virtualenv
+# Create virtualenv
 
 python -m venv env
 source env/bin/activate
 
-## Download requirements
+# Download requirements
 
 pip install -r requirements.txt
 
-## Create database in postgresql
+# Create database in postgresql
 
 DATABASE = star_navi
 USERNAME = star_navi
@@ -15,13 +15,13 @@ PASSWORD = star_navi
 PORT = 5432
 HOST = localhost
 
-## Up Api
+# Up Api
 
 python main.py
 
-## Requests
+# Requests
 
-# Signup
+## Signup
 
 - Curl request
   curl -X POST http://127.0.0.1:5000/signup -d '{"password":"1234", "email":"foo1@gmail.com"}' -H 'Content-Type: application/json'
@@ -34,7 +34,7 @@ python main.py
   "token": str
   }
 
-# Login
+## Login
 
 - Curl request
   curl -X POST http://127.0.0.1:5000/login -d '{"password":"1234", "email":"foo1@gmail.com"}' -H 'Content-Type: application/json'
@@ -47,7 +47,7 @@ python main.py
   "token": str
   }
 
-# Create Post
+## Create Post
 
 - Curl request
   curl -X POST http://127.0.0.1:5000/createPost -d '{"text":"Bla", "author_id":2}' -H 'Authorization: Bearer <JWT>' -H 'Content-Type: application/json'
@@ -62,7 +62,7 @@ python main.py
   'author_id': int
   }
 
-# Like/Unlike Post
+## Like/Unlike Post
 
 - Curl request
   curl -X POST http://127.0.0.1:5000/toogleLikePost -d '{"user_id":"1", "post_id":"1"}' -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT>'
@@ -78,7 +78,7 @@ python main.py
   'craeted': bool
   }
 
-# Analitic likes by date
+## Analitic likes by date
 
 - Curl request
   curl -X POST http://127.0.0.1:5000/analiticLikes'?date_from=06-06-2018&date_to=16-08-2020' -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT>'
@@ -91,7 +91,7 @@ python main.py
   }
   ]
 
-# User activity
+## User activity
 
 - Curl request
   curl -X POST http://127.0.0.1:5000/userActivity -d '{"user_id":"1"}' -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT>'
