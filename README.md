@@ -62,10 +62,26 @@ python main.py
   'author_id': int
   }
 
-## Like/Unlike Post
+## Like Post
 
 - Curl request
-  curl -X POST http://127.0.0.1:5000/toogleLikePost -d '{"user_id":"1", "post_id":"1"}' -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT>'
+  curl -X POST http://127.0.0.1:5000/likePost -d '{"user_id":"1", "post_id":"1"}' -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT>'
+
+  user_id: int - required
+  post_id: int - required
+
+- Response
+  {
+  'id': int,
+  'user_id': int,
+  'post_id': int,
+  'craeted': bool
+  }
+
+## Unlike Post
+
+- Curl request
+  curl -X POST http://127.0.0.1:5000/unlikePost -d '{"user_id":"1", "post_id":"1"}' -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT>'
 
   user_id: int - required
   post_id: int - required
@@ -108,3 +124,7 @@ python main.py
   },
   ...
   ]
+
+# Start bot
+
+python bot.py
